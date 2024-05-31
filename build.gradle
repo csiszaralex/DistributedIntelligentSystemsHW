@@ -1,0 +1,54 @@
+/*
+   Project IntelligentMountainRescue
+
+   Gradle build file for Jason Application
+   May 10, 2024 - 00:36
+*/
+
+plugins {
+    id 'java'
+}
+
+defaultTasks 'run'
+
+//group = 'hu.bme.mit'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url "https://raw.githubusercontent.com/jacamo-lang/mvn-repo/master" }
+    maven { url "https://jade.tilab.com/maven/" }
+}
+
+dependencies {
+    implementation 'io.github.jason-lang:jason:3.2.0'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'src/main/env'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+task run (type: JavaExec, dependsOn: 'classes') {
+    description 'runs the application'
+    mainClass = 'jason.infra.local.RunLocalMAS'
+    args = ['SmartHome.mas2j', '-v']
+    // options:
+    //     args = ['junctionManagement.mas2j', '--debug', '--no-net', '--empty-mas']
+    //     args = ['junctionManagement.mas2j', '--log-conf', 'l.p'] // to use file l.p to configure logging
+    classpath sourceSets.main.runtimeClasspath
+}
+
+task runJade (type: JavaExec, dependsOn: 'classes') {
+    description 'runs the application with Jade infrastructure'
+    mainClass = 'jason.infra.jade.RunJadeMAS'
+    args = [ 'SmartHome.mas2j' ]
+    classpath sourceSets.main.runtimeClasspath
+}

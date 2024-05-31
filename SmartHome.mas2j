@@ -1,0 +1,8 @@
+MAS smartHome {
+    environment: Simulation.HouseEnvironment
+
+    agents:
+        dad; vacuum; freezer; mop;
+
+    aslSourcePath: "src/main/asl";
+}

@@ -1,0 +1,8 @@
+MAS smartHome {
+    environment: Simulation.HouseEnvironment
+
+    agents:
+        test;
+
+    aslSourcePath: "src/main/asl";
+}
